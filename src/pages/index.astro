@@ -1,3 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
 <Layout title="">
   <div class="flex flex-col items-center justify-center h-screen text-center space-y-4 w-screen overflow-x-auto select-none touch-manipulation">
     <h1 style="color: #ff3c00" class="text-[240px] font-extrabold tracking-widest whitespace-nowrap">
@@ -8,7 +12,7 @@
     </h1>
   </div>
 
-  <script>
+  <script is:inline>
     let lastTap = 0;
 
     function handleFullScreen() {
