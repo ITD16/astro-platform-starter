@@ -25,11 +25,9 @@ const { title } = Astro.props;
     <body class="antialiased text-white bg-black">
   <div class="flex flex-col min-h-screen px-6 sm:px-12">
     <Header />
-
-    <main class="flex grow items-center justify-center w-screen">
+    <main class="flex grow items-center justify-center w-screen h-full">
       <slot />
     </main>
-
     <Footer />
   </div>
 </body>
