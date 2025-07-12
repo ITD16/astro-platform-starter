@@ -3,26 +3,54 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="">
-  <div id="fullscreen-container" style="text-align:center; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:black; color:#ff3c00;">
-    <div style="font-size:150px; font-weight:900; letter-spacing:0.1em;">SUN.WIN</div>
-    <div style="font-size:200px; font-weight:900; letter-spacing:0.1em;">GEM.WIN</div>
+  <style>
+    #fullscreen-container {
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      color: #ff3c00;
+      user-select: none;
+    }
+
+    .line1 {
+      font-size: 150px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+
+    .line2 {
+      font-size: 200px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      .line1 {
+        font-size: 80px;
+      }
+
+      .line2 {
+        font-size: 100px;
+      }
+    }
+  </style>
+
+  <div id="fullscreen-container">
+    <div class="line1">SUN.WIN</div>
+    <div class="line2">GEM.WIN</div>
   </div>
 
-  <!-- đặt script TRONG nội dung, đảm bảo nó nằm TRONG <slot /> -->
   <script is:inline>
     let lastTap = 0;
 
     function handleFullScreen() {
       const elem = document.documentElement;
-      const content = document.getElementById('fullscreen-container');
-      if (content) {
-        content.style.height = window.innerHeight + 'px';
-      }
-
       if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch((err) => {
-          console.error('❌ Fullscreen error:', err);
-        });
+        elem.requestFullscreen().catch(console.error);
       } else if (elem.webkitRequestFullscreen) {
         elem.webkitRequestFullscreen();
       } else if (elem.msRequestFullscreen) {
@@ -37,8 +65,7 @@ import Layout from '../layouts/Layout.astro';
 
     document.addEventListener('touchend', (e) => {
       const now = new Date().getTime();
-      const tapLength = now - lastTap;
-      if (tapLength < 300 && tapLength > 0) {
+      if (now - lastTap < 300) {
         e.preventDefault();
         handleFullScreen();
       }
