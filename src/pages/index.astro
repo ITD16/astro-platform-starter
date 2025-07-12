@@ -9,8 +9,9 @@
   </div>
 
   <script>
-    document.addEventListener('dblclick', (e) => {
-      e.preventDefault(); // ✅ Chặn zoom chữ khi double tap
+    let lastTap = 0;
+
+    function handleFullScreen() {
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
@@ -19,6 +20,21 @@
       } else if (elem.msRequestFullscreen) {
         elem.msRequestFullscreen();
       }
+    }
+
+    document.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      handleFullScreen();
+    });
+
+    document.addEventListener('touchend', (e) => {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
+        e.preventDefault();
+        handleFullScreen();
+      }
+      lastTap = currentTime;
     });
   </script>
 </Layout>
