@@ -1,9 +1,5 @@
----
-import Layout from '../layouts/Layout.astro';
----
-
 <Layout title="">
-  <div 
+  <div
     id="fullscreen-container"
     class="flex flex-col items-center justify-center h-screen text-center space-y-4 w-screen overflow-x-auto select-none touch-manipulation"
   >
@@ -15,14 +11,21 @@ import Layout from '../layouts/Layout.astro';
     </h1>
   </div>
 
-  <!-- ✅ Script đúng chuẩn Astro -->
   <script is:inline>
     let lastTap = 0;
 
     function handleFullScreen() {
       const elem = document.documentElement;
+      const content = document.getElementById('fullscreen-container');
+
+      if (content) {
+        content.style.height = window.innerHeight + 'px';
+      }
+
       if (elem.requestFullscreen) {
-        elem.requestFullscreen();
+        elem.requestFullscreen().catch((err) => {
+          console.error('❌ Fullscreen error:', err);
+        });
       } else if (elem.webkitRequestFullscreen) {
         elem.webkitRequestFullscreen();
       } else if (elem.msRequestFullscreen) {
@@ -30,14 +33,11 @@ import Layout from '../layouts/Layout.astro';
       }
     }
 
-    // ✅ Ngăn pinch zoom (2 ngón)
-    document.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-      }
-    }, { passive: false });
+    document.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      handleFullScreen();
+    });
 
-    // ✅ Giả lập double tap trên mobile
     document.addEventListener('touchend', (e) => {
       const now = new Date().getTime();
       const tapLength = now - lastTap;
@@ -46,12 +46,6 @@ import Layout from '../layouts/Layout.astro';
         handleFullScreen();
       }
       lastTap = now;
-    });
-
-    // ✅ Desktop: double click
-    document.addEventListener('dblclick', (e) => {
-      e.preventDefault();
-      handleFullScreen();
     });
   </script>
 </Layout>
