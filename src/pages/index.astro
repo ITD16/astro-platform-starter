@@ -27,16 +27,6 @@ import Layout from '../layouts/Layout.astro';
       font-weight: 900;
       letter-spacing: 0.1em;
     }
-
-    @media (max-width: 768px) {
-      .line1 {
-        font-size: 80px;
-      }
-
-      .line2 {
-        font-size: 100px;
-      }
-    }
   </style>
 
   <div id="fullscreen-container">
@@ -50,7 +40,7 @@ import Layout from '../layouts/Layout.astro';
     function handleFullScreen() {
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch(console.error);
+        elem.requestFullscreen();
       } else if (elem.webkitRequestFullscreen) {
         elem.webkitRequestFullscreen();
       } else if (elem.msRequestFullscreen) {
