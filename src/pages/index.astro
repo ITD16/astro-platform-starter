@@ -7,6 +7,20 @@ import Layout from '../layouts/Layout.astro';
     <h1 class="text-[240px] font-extrabold text-orange-500 tracking-widest whitespace-nowrap">SUN.WIN</h1>
     <h1 class="text-[240px] font-extrabold text-orange-500 tracking-widest whitespace-nowrap">GEM.WIN</h1>
   </div>
+
+<script>
+  document.addEventListener('dblclick', () => {
+    const elem = document.documentElement; // hoặc document.body
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { // Safari
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE
+      elem.msRequestFullscreen();
+    }
+  });
+</script>
+
 </Layout>
 
 
