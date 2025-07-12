@@ -4,6 +4,8 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="">
   <style is:inline>
+    @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
+
     #fullscreen-container {
       display: flex;
       flex-direction: column;
@@ -14,26 +16,22 @@ import Layout from '../layouts/Layout.astro';
       color: #ff3c00;
       text-align: center;
       user-select: none;
+      gap: 20px; /* giảm khoảng cách giữa 2 dòng */
+      font-family: 'Impact', sans-serif;
     }
 
-    .line1 {
+    .line {
       font-size: 200px;
       font-weight: 900;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
       margin: 0;
-    }
-
-    .line2 {
-      font-size: 200px;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      margin: 0;
+      line-height: 1; /* giúp giảm khoảng cách đứng giữa các dòng */
     }
   </style>
 
   <div id="fullscreen-container">
-    <div class="line1">SUN.WIN</div>
-    <div class="line2">GEM.WIN</div>
+    <div class="line">SUN.WIN</div>
+    <div class="line">GEM.WIN</div>
   </div>
 
   <script is:inline>
