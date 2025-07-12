@@ -1,39 +1,37 @@
-<Layout title="">
-        <h1 class="!text-[#ff3c00] text-[240px] font-extrabold tracking-widest whitespace-nowrap">
-        SUN.WIN
-      </h1>
-      <h1 class="!text-[#ff3c00] text-[240px] font-extrabold tracking-widest whitespace-nowrap">
-        GEM.WIN
-      </h1>
+<script>
+  let lastTap = 0;
 
-
-  <script>
-    let lastTap = 0;
-
-    function handleFullScreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-      }
+  function handleFullScreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
     }
+  }
 
-    document.addEventListener('dblclick', (e) => {
-      e.preventDefault();
+  // ✅ Chặn zoom khi double tap
+  document.addEventListener('touchstart', function(e) {
+    if (e.touches.length > 1) {
+      e.preventDefault(); // chặn pinch zoom
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', (e) => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (tapLength < 300 && tapLength > 0) {
+      e.preventDefault(); // chặn double tap zoom
       handleFullScreen();
-    });
+    }
+    lastTap = currentTime;
+  });
 
-    document.addEventListener('touchend', (e) => {
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      if (tapLength < 300 && tapLength > 0) {
-        e.preventDefault();
-        handleFullScreen();
-      }
-      lastTap = currentTime;
-    });
-  </script>
-</Layout>
+  // ✅ Dành cho desktop
+  document.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    handleFullScreen();
+  });
+</script>
