@@ -1,34 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
 <Layout title="">
-  <div id="fullscreen-container" style="text-align:center; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:black; color:#ff3c00; user-select:none;">
-    <div style="font-size:100px; font-weight:900; letter-spacing:0.1em;">
+  <div
+    id="fullscreen-container"
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin:0;
+      padding:0;
+      background: black;
+      color: #ff3c00;
+      user-select: none;
+    "
+  >
+    <div style="font-size: 100px; font-weight: 900; letter-spacing: 0.1em; margin: 0;">
       SUN.WIN
     </div>
-    <div style="font-size:240px; font-weight:900; letter-spacing:0.1em;">
+    <div style="font-size: 240px; font-weight: 900; letter-spacing: 0.1em; margin: 0;">
       GEM.WIN
     </div>
   </div>
 
   <script is:inline>
     let lastTap = 0;
-
     function handleFullScreen() {
       const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-      }
+      if (elem.requestFullscreen) elem.requestFullscreen().catch(console.error);
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
     }
-
-    document.addEventListener('dblclick', (e) => {
+    document.addEventListener('dblclick', e => {
       e.preventDefault();
       handleFullScreen();
     });
-
-    document.addEventListener('touchend', (e) => {
-      const now = new Date().getTime();
+    document.addEventListener('touchend', e => {
+      const now = Date.now();
       if (now - lastTap < 300) {
         e.preventDefault();
         handleFullScreen();
